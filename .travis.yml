@@ -11,6 +11,7 @@ install: ./setup_kubectl.sh
 
 script:
   - echo Hello!
+  - pwd
   - kubectl version
 #  - VER=`git log --pretty=tformat:%h -n 1`
 #  - IMAGE=prcek/k8stestnginx:$VER
