@@ -20,7 +20,7 @@ jobs:
       install: "./setup_kubectl.sh"
       script:
         - echo Hello deploy!
-        - VER="latest"
+        - export VER="latest"
         - envsubst < ./deploy/deployment.yaml  
         
         
