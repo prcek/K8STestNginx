@@ -8,7 +8,7 @@ env:
 jobs:
   include:
     - stage: build
-      script: 
+      script:  
         - echo Hello build stage
         - VER=`git log --pretty=tformat:%h -n 1`
         - ./build.sh $VER
