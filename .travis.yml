@@ -9,9 +9,16 @@ jobs:
   include:
     - stage: build
       script:  
-        - echo Hello build stage
+        - echo BUILD STAGE
         - VER=`git log --pretty=tformat:%h -n 1`
-        - ./build.sh $VER
+        - IMAGE=prcek/k8stestnginx:$VER
+        - IMAGE_L=prcek/k8stestnginx:latest
+        - echo Image $IMAGE
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t $IMAGE .
+        - docker tag $IMAGE $IMAGE_L
+        - docker push $IMAGE
+        - docker push $IMAGE_L
     - stage: deploy
       before_install:
       - openssl aes-256-cbc -K $encrypted_5dfbbc78fcfe_key -iv $encrypted_5dfbbc78fcfe_iv
@@ -19,9 +26,9 @@ jobs:
         -d
       install: "./setup_kubectl.sh"
       script:
-        - echo Hello deploy!
-        - export VER="latest"
-        - envsubst < ./deploy/deployment.yaml  
+        - echo DEPLOY STATE
+        - export VER=`git log --pretty=tformat:%h -n 1`
+        - envsubst < ./deploy/deployment.yaml | kubectl apply -f -
         
         
 #| kubectl apply -f -
