@@ -5,20 +5,22 @@ services:
 env:
 - secure: IOwWDncjaWf1CAc8rutSbCeOJFHjIS5DUndvp/xTWNNtfFM/W+1BHhsTGyeA4G/kxXpbne1ob4nWJ16Zi1Km+QCwBplffv5U/trb/dhLZFy9HRBvlpeT9t7Ozh1Oxc2I06mnjL9xoTZC5NpGXwsodN3jZzOD8jgQZYgQ+dnsNXt+fB41b7tEivjM7R7D1zM46dHVFFEiNFyBR+2P4AqgoANCnoFhtjSSxtCcwSBzhlMjYbJc35VU1kt9dRq9cMBySbYicXbMFOrhelj8mDgcOAutFEUykDETCLCtdfA7UopqzYfU44GaQxOYR2E0Y+Nh8em6H8BIMZUAv8kjtPS45YIwroJZ0CvC9nDutasoezB8rCWEDBOaoUgeR8gFWTswrqH0hAD67RJFvMXqIAxvWquITfTvoSWsVMtD6gnE283biict4zW6iAQMNyflXz9dh66SWRg11BQzuk8aia+4/pO4hqlecdAA/nltY2x24MLKbia6Dnfwiri9MZumNTgsAsbdQ84DzbpXV8ZBVFWPczGkkanPCmZVI9Mz7kCJNDoCXn8s1VVc72HReKuOgvHBTX5buOpdF6P33Peha4DSdiSNJt4P8FntdECoc34IxfpTuwpwIfUlkEABxDWXQSLZllkzgO23XU1ZJ+mO+y0OgkmITNDmiYJ8GxhGSSkGDIU=
 
+jobs:
+  include:
+    - stage: build
+      script: echo Hello build stage
+    - stage: deploy
+      before_install:
+      - openssl aes-256-cbc -K $encrypted_5dfbbc78fcfe_key -iv $encrypted_5dfbbc78fcfe_iv
+        -in k8s-1-12-1-do-2-fra1-1542279972256-kubeconfig.yaml.enc -out k8s-1-12-1-do-2-fra1-1542279972256-kubeconfig.yaml
+        -d
+      install: "./setup_kubectl.sh"
+      script:
+        - echo Hello deploy!
+        - kubectl version
 
-before_install:
-- openssl aes-256-cbc -K $encrypted_5dfbbc78fcfe_key -iv $encrypted_5dfbbc78fcfe_iv
-  -in k8s-1-12-1-do-2-fra1-1542279972256-kubeconfig.yaml.enc -out k8s-1-12-1-do-2-fra1-1542279972256-kubeconfig.yaml
-  -d
 
-install: "./setup_kubectl.sh"
-script:
-- echo Hello!
-- pwd
-- kubectl version
-
-
-after_success:
-- export VER="latest"
-- envsubst < ./deploy/pod_nginx.yaml
+#after_success:
+#- export VER="latest"
+#- envsubst < ./deploy/pod_nginx.yaml
 
