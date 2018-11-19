@@ -10,13 +10,15 @@ env:
 install: ./setup_kubectl.sh
 
 script:
-  - VER=`git log --pretty=tformat:%h -n 1`
-  - IMAGE=prcek/k8stestnginx:$VER
-  - IMAGE_L=prcek/k8stestnginx:latest
-  - echo Image $IMAGE
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t $IMAGE .
-  - docker tag $IMAGE $IMAGE_L
-  - docker push $IMAGE
-  - docker push $IMAGE_L
+  - echo Hello!
+  - kubectl version
+#  - VER=`git log --pretty=tformat:%h -n 1`
+#  - IMAGE=prcek/k8stestnginx:$VER
+#  - IMAGE_L=prcek/k8stestnginx:latest
+#  - echo Image $IMAGE
+#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#  - docker build -t $IMAGE .
+#  - docker tag $IMAGE $IMAGE_L
+#  - docker push $IMAGE
+#  - docker push $IMAGE_L
   
