@@ -14,4 +14,4 @@ echo VER=$VER
 #  - docker push $IMAGE
 #  - docker push $IMAGE_L
 
-exit 2
+#exit 2

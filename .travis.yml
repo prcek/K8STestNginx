@@ -20,7 +20,8 @@ jobs:
       install: "./setup_kubectl.sh"
       script:
         - echo Hello deploy!
-        - kubectl version
+        - VER="latest"
+        - envsubst < ./deploy/deployment.yaml  | kubectl apply -f -
 
 
 #after_success:

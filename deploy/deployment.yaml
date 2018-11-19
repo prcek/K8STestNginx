@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-app-proxy-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-app-proxy
+  template:
+    metadata:
+      labels:
+        app: nginx-app-proxy
+    spec:
+      containers:
+      - name: nginx-app-proxy-container
+        image: prcek/k8stestnginx
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources:
+          limits:
+            memory: 64Mi
+          requests:
+            memory: 32Mi
