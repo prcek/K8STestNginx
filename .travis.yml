@@ -18,3 +18,7 @@ script:
 - kubectl version
 
 
+deploy:
+- export VER="latest"
+- envsubst < ./deploy/pod_nginx.yaml
+
