@@ -4,6 +4,6 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s htt
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 mkdir ~/.kube
-cp ./kube_cfg.yml ~/.kube/config
+cp ./k8s-1-12-1-do-2-fra1-1542279972256-kubeconfig.yaml ~/.kube/config
 
 
