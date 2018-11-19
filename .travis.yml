@@ -21,7 +21,10 @@ jobs:
       script:
         - echo Hello deploy!
         - VER="latest"
-        - envsubst < ./deploy/deployment.yaml  | kubectl apply -f -
+        - envsubst < ./deploy/deployment.yaml  
+        
+        
+#| kubectl apply -f -
 
 
 #after_success:
